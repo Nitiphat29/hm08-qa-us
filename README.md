@@ -19,4 +19,4 @@ npm install
 7. get server URL
 update the base URL in the wdio.conf.js with the new URL provided by tripleten Urban.Routes
 8. write the tests and start the server
-npx jest
+ npm run wido

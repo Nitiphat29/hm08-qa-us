@@ -48,4 +48,44 @@ module.exports = {
         await codeField.setValue(code)
         await $(this.confirmButton).click()
     },
+    selectPlan: async function(planName) { 
+        const planButton = await $ 
+        (`button=${planName}`);
+        await planButton.click(); 
+    },
+    addCreditCard: async function(cardNumber, expiryDate, cvv) {
+        const cardField = await $ 
+        ('#creditCard');
+        await cardField.setValue(cardNumber);
+
+        const expiryField = await $ ('#expiryDate');
+        await expiryField.setValue(expiryDate);
+
+        const cvvField = await $('#cvv');
+        await cvvField.setValue(cvv);
+
+        const submitButton = await $ ('#submitCard');
+        await submitButton.click();
+    },
+    writeMessage: async function(message) { 
+        const messageField = await $ ('#message');
+        await messageField.setValue(message);
+    },
+    orderItem: async function(items) { 
+        for (const item of items) { 
+            const itemButton = await $ 
+            (`button=${items}`);
+            await itemButton.click();
+        }
+    },
+    searchForCar: async function() { 
+        const searchButton = await $ 
+        ('.search-car');
+        await searchButton.click();
+    },
+    waitForDriverInfo: async function() { 
+        const driverInfo = await $ 
+        ('.driver-info');
+        await driverInfo.waitForDisplayed();
+    }
 };
