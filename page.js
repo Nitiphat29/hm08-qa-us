@@ -9,9 +9,14 @@ module.exports = {
     phoneNumberButton: '//div[starts-with(text(), "Phone number")]',
     nextButton: 'button=Next',
     confirmButton: 'button=Confirm',
-    // Modals
+    planButton: 'div=Supportive',
+    messageField: '#comment',
+    blanketButton: '.switch',
+    blanketButtonStatus: '.switch-input',
+    iceCreamPlusButton: 'div=+',
+    orderButton: '.smart-button-main=Order',
     phoneNumberModal: '.modal',
-    // Functions
+    carSearchModal: 'div=Car search',
     fillAddresses: async function(from, to) {
         const fromField = await $(this.fromField);
         await fromField.setValue(from);
@@ -48,10 +53,11 @@ module.exports = {
         await codeField.setValue(code)
         await $(this.confirmButton).click()
     },
-    selectPlan: async function(planName) { 
-        const planButton = await $ 
-        (`button=${planName}`);
-        await planButton.click(); 
+    selectPlan: async function() { 
+        const planButton = await $(this.planButton);
+        await planButton.waitForDisplayed();
+        planButton.click(); 
+        return planButton;
     },
     addCreditCard: async function(cardNumber, expiryDate, cvv) {
         const cardField = await $ 
@@ -68,24 +74,30 @@ module.exports = {
         await submitButton.click();
     },
     writeMessage: async function(message) { 
-        const messageField = await $ ('#message');
-        await messageField.setValue(message);
+        const messageField = await $ (this.messageField);
+        await messageField.waitForDisplayed();
+        messageField.setValue(message);
     },
     orderItem: async function(items) { 
-        for (const item of items) { 
-            const itemButton = await $ 
-            (`button=${items}`);
-            await itemButton.click();
-        }
+        const blanketButton = await $(this.blanketButton);
+        await blanketButton.waitForDisplayed();
+        await blanketButton.click();
     },
     searchForCar: async function() { 
-        const searchButton = await $ 
-        ('.search-car');
-        await searchButton.click();
+        const orderButton = await $(this.orderButton);
+        await orderButton.waitForDisplayed();
+        await orderButton.click();
     },
     waitForDriverInfo: async function() { 
         const driverInfo = await $ 
         ('.driver-info');
         await driverInfo.waitForDisplayed();
-    }
+    },
+    addIceCream: async function (qty) {
+        const iceCreamPlusButton = await $(this.iceCreamPlusButton);
+        await iceCreamPlusButton.waitForDisplayed();
+        for (i = 0; i < qty; i++) {
+            await iceCreamPlusButton.click();
+        }
+    },
 };
